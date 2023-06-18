@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elgamal</title>
+    <link rel="stylesheet" href="./index.css" >
+    <script src="./index.js"></script>
+</head>
+<body>
+    <h2>Mã hóa Elgamal</h2>
+    <div class="container">
+        <div class="public">
+            <button onclick="displayPublicKey()">Sinh khóa</button>
+            <div id="publicKeyDisplay" class="sinhkhoa">
+                <p>P: <span></span></p>
+                <p>Alpha: <span></span></p>
+                <p>Beta: <span></span></p>
+            </div>
+        </div>
+
+        <div class="text-input">
+            <b for="fileInput">Chọn file text cần mã hóa</b>
+            <input type="file" id="fileInput" accept=".txt,.docx" onchange="handleFileSelect(event)">
+        </div>
+
+        <div class="enc">
+            <div class="input">
+                <div for="inputText" class="pr">Văn bản cần được mã hóa</div>
+                <textarea id="inputText" rows="4" cols="50"></textarea>    
+            </div>
+            <div class="encrypt">
+                <div for="encryptionResult" class="pr">Văn bản sau khi mã hóa</div>
+                <textarea id="encryptionResult" rows="4" cols="50" readonly></textarea>
+            </div>
+
+        </div>
+
+        <div class="decrypt">
+            <div class="btn-container">
+                <button onclick="encryptMessage()">Mã hóa</button>
+                <button onclick="decryptMessage()" class="button2">Giải mã</button>    
+                <button onclick="" class="button3">Lưu File</button>    
+            </div>
+            <div class="decrtext">
+                <div for="decryptionResult" class="pr">Văn bản sau khi được giải mã</div>
+                <textarea id="decryptionResult" rows="4" cols="50" readonly></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
