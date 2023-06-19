@@ -1,0 +1,1 @@
+Đây đơn giản là 1 file chỉ dùng để test cái chức năng mã hóa file 

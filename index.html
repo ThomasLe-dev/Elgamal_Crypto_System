@@ -3,17 +3,19 @@
 <head>
     <title>Elgamal</title>
     <link rel="stylesheet" href="./index.css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="./index.js"></script>
 </head>
 <body>
-    <h2>Mã hóa Elgamal</h2>
+    <h2>Lê Bá Thành_Nhóm 6_Mã hóa Elgamal</h2>
     <div class="container">
         <div class="public">
             <button onclick="displayPublicKey()">Sinh khóa</button>
             <div id="publicKeyDisplay" class="sinhkhoa">
-                <p>P: <span></span></p>
-                <p>Alpha: <span></span></p>
-                <p>Beta: <span></span></p>
+                <p>P: <b id="prime-d"></b></p>
+                <p>Alpha: <b id="alpha-d"></b></p>
+                <p>Beta: <b id="beta-d"></b></p>
+                <p>Private: <b id="private-d"></b></p>
             </div>
         </div>
 
@@ -38,7 +40,7 @@
             <div class="btn-container">
                 <button onclick="encryptMessage()">Mã hóa</button>
                 <button onclick="decryptMessage()" class="button2">Giải mã</button>    
-                <button onclick="" class="button3">Lưu File</button>    
+                <button onclick="saveFile()" class="button3">Lưu File</button>    
             </div>
             <div class="decrtext">
                 <div for="decryptionResult" class="pr">Văn bản sau khi được giải mã</div>

@@ -1,7 +1,7 @@
 var Alphabet = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ \nπ®ƒ©∆";
 Alphabet = Alphabet.split("");
 
-var Crypto = function (alpha, gen, C) {
+var Crypto = function (alpha, gen, C, Prime) {
     var p, B, encrypt, decrypt, f, g, modInv, modPow, toAlpha, to10;
     toAlpha = function (x) {
         var y, p, l, n;
@@ -71,7 +71,7 @@ var Crypto = function (alpha, gen, C) {
         }
         return c;
     };
-    p = 91744613;
+    p = Prime;
     C = parseInt(C, 10);
     if (isNaN(C)) {
         C = Math.round(Math.sqrt(Math.random() * Math.random()) * (p - 2) + 2);
@@ -143,16 +143,58 @@ var Crypto = function (alpha, gen, C) {
         encrypt: f
     };
 };
+// 91744613
+function generatePrime() {
+    const min = 1000; // Minimum value for the prime number
+  
+    while (true) {
+      const number = getRandomInt(min, 99999);
+  
+      if (isPrime(number)) {
+        return number;
+      }
+    }
+  }
+  
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  
+  function isPrime(number) {
+    if (number < 2) {
+      return false;
+    }
+  
+    for (let i = 2; i <= Math.sqrt(number); i++) {
+      if (number % i === 0) {
+        return false;
+      }
+    }
+  
+    return true;
+}
+
+function generateRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var PrimeNum = generatePrime(); 
+var PrivateKey = generateRandomInt(5, 10000);
+var alpha = generateRandomInt(5, 1000);
+  
+
+var MH = Crypto(Alphabet, alpha, PrivateKey, PrimeNum);
+var GM = Crypto(Alphabet, alpha, PrivateKey, PrimeNum);
 
 
-var MH = Crypto(Alphabet, 90, 8);
-var GM = Crypto(Alphabet, 90, 8);
-
-// Function to display the public key
 function displayPublicKey() {
-    var publicKey = MH.pubKey;
-    var publicKeyString = "\n\np: " + publicKey[0] + "\ngen: " + publicKey[1] + "\nB: " + publicKey[2];
-    document.getElementById("publicKeyDisplay").textContent = publicKeyString;
+    var pub = MH.pubKey;
+    document.getElementById("prime-d").textContent = PrimeNum;
+    document.getElementById("alpha-d").textContent = alpha;
+    document.getElementById("beta-d").textContent = pub[2];
+    document.getElementById("private-d").textContent = PrivateKey;
 }
 
 
@@ -176,13 +218,27 @@ function handleFileSelect(evt) {
 // Function to encrypt user input
 function encryptMessage() {
     var input = document.getElementById("inputText").value;
-    var encrypted = MH.encrypt(encodeURIComponent(input), GM.pubKey);
+    var encrypted;
+
+    if (input === "") {
+        encrypted = "Không được để trống trường văn bản cần mã hóa!";
+    } else {
+        encrypted = MH.encrypt(encodeURIComponent(input), GM.pubKey);
+    }
+
     document.getElementById("encryptionResult").value = encrypted;
 }
 
-// Function to decrypt the encrypted message
+
 function decryptMessage() {
     var encrypted = document.getElementById("encryptionResult").value;
     var decrypted = decodeURIComponent(GM.decrypt(encrypted));
     document.getElementById("decryptionResult").value = decrypted;
+}
+
+function saveFile(){
+    let decrypted = document.getElementById("decryptionResult").value;
+
+    var blob = new Blob([decrypted], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, "output.txt");
 }

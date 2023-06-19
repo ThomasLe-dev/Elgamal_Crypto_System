@@ -54,13 +54,22 @@ h2{
 }
 
 .btn-container{
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
     padding: 20px 0;
     align-items: flex-start;
-    padding-right: 548px;
+    position: relative;
+    left: 8.5%;
+}
+
+.decrtext{
+    position: absolute;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .pr{
@@ -71,6 +80,7 @@ h2{
 .decrypt{
     display: flex;
     padding-top: 20px;
+    width: 100%;
 }
 
 button{
